@@ -18,6 +18,18 @@ dev.doubleEverything = function() {
         }
     })
 }
+dev.multiplyEverything = function(multiply) {
+    Object.keys(player).forEach( function(key) {
+        if (typeof player[key] === "number") player[key] *= multiply;
+        if (typeof player[key] === "object" && player[key].constructor !== Object) player[key] = player[key].times(multiply);
+        if (typeof player[key] === "object" && !isFinite(player[key])) {
+            Object.keys(player[key]).forEach( function(key2) {
+                if (typeof player[key][key2] === "number") player[key][key2] *= multiply
+                if (typeof player[key][key2] === "object" && player[key][key2].constructor !== Object) player[key][key2] = player[key][key2].times(multiply)
+            })
+        }
+    })
+}
 
 dev.spin3d = function() {
     if (document.getElementById("body").style.animation === "") document.getElementById("body").style.animation = "spin3d 2s infinite"
